@@ -49,4 +49,3 @@ export const authLogin = async ( req: Request, res: Response ) => {
     });
   }
 }
-

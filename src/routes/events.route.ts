@@ -1,6 +1,13 @@
 import { Router } from 'express';
 import {check} from 'express-validator';
 // Controllers
+import {
+  createEvent,
+  deleteEvent,
+  getEvent,
+  getEvents,
+  updateEvent
+} from '../controllers/events';
 // Helpers
 // Middlewares
 import { validateFields, validateJWT } from '../middlewares';
@@ -12,11 +19,14 @@ const router: Router = Router();
 
 router.use( validateJWT );
 
-router.post( '/', [] );
-router.get( '/', [] );
-router.get( '/:id', [] );
-router.put( '/:id', [] );
-router.delete( '/:id', [] );
+router.post( '/', [
+  validateFields
+], createEvent );
+
+router.get( '/', [], getEvents );
+router.get( '/:id', [], getEvent );
+router.put( '/:id', [], updateEvent );
+router.delete( '/:id', [], deleteEvent );
 
 export default router;
 

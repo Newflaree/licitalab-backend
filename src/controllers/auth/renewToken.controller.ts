@@ -33,5 +33,3 @@ export const renewToken = async ( req: AuthRequest, res: Response ) => {
     });
   }
 }
-
-
