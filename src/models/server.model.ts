@@ -3,7 +3,7 @@ import cors from 'cors';
 // Database
 import dbConnection from '../database/config.db';
 // Routes
-import { authRouter } from '../routes';
+import { authRouter, eventsRouter } from '../routes';
 
 class Server {
   private app: Application;
@@ -14,7 +14,8 @@ class Server {
     this.app = express();
     this.port = process.env.PORT || '3002';
     this.apiPaths = {
-      auth: '/api/auth'
+      auth: '/api/auth',
+      events: '/api/events'
     }
 
     // Init methods
@@ -35,7 +36,8 @@ class Server {
   }
 
   routes() {
-    this.app.use( this.apiPaths.auth, authRouter )
+    this.app.use( this.apiPaths.auth, authRouter );
+    this.app.use( this.apiPaths.events, eventsRouter );
   }
 
   listen() {
