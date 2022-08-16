@@ -11,19 +11,19 @@ export const authRegister = async ( req: Request, res: Response ) => {
   const { name, email, password } = req.body;
 
   try {
-    const userRegistered = new User({ name, email, password });
+    const registeredUser = new User({ name, email, password });
 
     // Encrypt password
     const salt = bcrypt.genSaltSync();
-    userRegistered.password = bcrypt.hashSync( password, salt );
+    registeredUser.password = bcrypt.hashSync( password, salt );
     // Save to DB
-    await userRegistered.save();
+    await registeredUser.save();
 
     //TODO: Generate JWT
 
     res.status( 201 ).json({
       ok: true,
-      user: userRegistered
+      user: registeredUser
     });
 
   } catch ( err ) {

@@ -24,7 +24,11 @@ router.post( '/register', [
   validateFields
 ], authRegister );
 
-router.post( '/login', authLogin );
+router.post( '/login', [
+  check( 'email', 'Email is required' ).isEmail(),
+  check( 'password', 'Password is required' ).not().isEmpty(),
+  validateFields
+], authLogin );
 
 router.get( '/renew', renewToken );
 
