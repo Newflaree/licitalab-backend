@@ -1,5 +1,10 @@
 import { Router } from 'express';
 // Controllers
+import {
+  authLogin,
+  authRegister,
+  renewToken
+} from '../controllers/auth';
 // Helpers
 // Middlewares
 
@@ -8,7 +13,9 @@ import { Router } from 'express';
 */
 const router: Router = Router();
 
-router.post( '/register' );
-router.post( '/login' );
+router.post( '/register', authRegister );
+router.post( '/login', authLogin );
+
+router.get( '/renew', renewToken );
 
 export default router;
