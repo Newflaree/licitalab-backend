@@ -20,7 +20,7 @@ const UserSchema = new Schema<Props>({
   },
   password: {
     type: String,
-    requiredPaths: [ true, 'Password is required' ]
+    required: [ true, 'Password is required' ]
   },
   img: {
     type: String
