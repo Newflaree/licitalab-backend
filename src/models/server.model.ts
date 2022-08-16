@@ -1,4 +1,6 @@
-import express, { Application } from "express";
+import express, { Application } from 'express';
+// Database
+import dbConnection from '../database/config.db';
 
 class Server {
   public app: Application;
@@ -6,7 +8,22 @@ class Server {
 
   constructor() {
     this.app = express();
-    this.port = '3002';
+    this.port = process.env.PORT || '3002';
+
+    // Init methods
+    this.dbConnect();
+  }
+
+  async dbConnect() {
+    await dbConnection();
+  }
+
+  middlewares() {
+    throw new Error( 'Method not implemented' );
+  }
+
+  routes() {
+    throw new Error( 'Method not implemented' );
   }
 
   listen() {
