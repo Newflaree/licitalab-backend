@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {check} from 'express-validator';
+import { check } from 'express-validator';
 // Controllers
 import {
   authLogin,

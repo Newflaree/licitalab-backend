@@ -26,7 +26,7 @@ export const validateJWT = async ( req: AuthRequest, res: Response, next: NextFu
       });
     }
 
-    req.user = user;
+    req.user = user.id;
     next();
 
   } catch ( err ) {

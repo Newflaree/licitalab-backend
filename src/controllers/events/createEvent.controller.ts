@@ -1,19 +1,25 @@
 import { Response } from 'express';
-// Helpers
 // Interfaces
 import { AuthRequest } from '../../interfaces/http';
 // Models
+import { Event } from '../../models';
 
 /*
   PATH: '/api/events'
   REQUIRED-JWT: true
 */
 export const createEvent = async ( req: AuthRequest, res: Response ) => {
+  const { title, desc, start, end } = req.body;
 
   try {
+    const newEvent = new Event({ title, desc, start, end });
+    newEvent.user = req.user;
+
+    await newEvent.save();
+
     res.status( 201 ).json({
       ok: true,
-      msg: 'createEvent'
+      event: newEvent
     });
 
   } catch ( err ) {

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {check} from 'express-validator';
+import { check } from 'express-validator';
 // Controllers
 import {
   createEvent,
@@ -9,6 +9,7 @@ import {
   updateEvent
 } from '../controllers/events';
 // Helpers
+import { isDate } from '../helpers/db';
 // Middlewares
 import { validateFields, validateJWT } from '../middlewares';
 
@@ -20,6 +21,9 @@ const router: Router = Router();
 router.use( validateJWT );
 
 router.post( '/', [
+  check( 'title', 'Title is required' ).not().isEmpty(),
+  check( 'start', 'Start date is required' ).custom( isDate ),
+  check( 'end', 'End date is required' ).custom( isDate ),
   validateFields
 ], createEvent );
 
