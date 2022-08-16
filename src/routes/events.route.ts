@@ -22,6 +22,7 @@ router.use( validateJWT );
 
 router.post( '/', [
   check( 'title', 'Title is required' ).not().isEmpty(),
+  check( 'desc', 'Description is required' ).not().isEmpty(),
   check( 'start', 'Start date is required' ).custom( isDate ),
   check( 'end', 'End date is required' ).custom( isDate ),
   validateFields
@@ -37,7 +38,16 @@ router.get( '/:id', [
   validateFields
 ], getEvent );
 
-router.put( '/:id', [], updateEvent );
+router.put( '/:id', [
+  check( 'title', 'Title is required' ).not().isEmpty(),
+  check( 'desc', 'Description is required' ).not().isEmpty(),
+  check( 'start', 'Start date is required' ).custom( isDate ),
+  check( 'end', 'End date is required' ).custom( isDate ),
+  check( 'id', 'Invalid id' ).isMongoId(),
+  check( 'id' ).custom( eventIdValidator ),
+  validateFields
+], updateEvent );
+
 router.delete( '/:id', [], deleteEvent );
 
 export default router;
