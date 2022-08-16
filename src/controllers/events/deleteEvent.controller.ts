@@ -2,6 +2,7 @@ import { Response } from 'express';
 // Helpers
 // Interfaces
 import { AuthRequest } from '../../interfaces/http';
+import {Event} from '../../models';
 // Models
 
 /*
@@ -9,11 +10,14 @@ import { AuthRequest } from '../../interfaces/http';
   REQUIRED-JWT: true
 */
 export const deleteEvent = async ( req: AuthRequest, res: Response ) => {
+  const { id } = req.params;
 
   try {
+    await Event.findByIdAndUpdate( id, { status: false });
+
     res.status( 200 ).json({
       ok: true,
-      msg: 'deleteEvent'
+      msg: 'Event was successfully deleted'
     });
 
   } catch ( err ) {

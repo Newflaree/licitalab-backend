@@ -48,7 +48,11 @@ router.put( '/:id', [
   validateFields
 ], updateEvent );
 
-router.delete( '/:id', [], deleteEvent );
+router.delete( '/:id', [
+  check( 'id', 'Invalid id' ).isMongoId(),
+  check( 'id' ).custom( eventIdValidator ),
+  validateFields
+], deleteEvent );
 
 export default router;
 
