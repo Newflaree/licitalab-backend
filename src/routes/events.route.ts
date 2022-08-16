@@ -27,7 +27,10 @@ router.post( '/', [
   validateFields
 ], createEvent );
 
-router.get( '/', [], getEvents );
+router.get( '/', [
+  validateFields
+], getEvents );
+
 router.get( '/:id', [], getEvent );
 router.put( '/:id', [], updateEvent );
 router.delete( '/:id', [], deleteEvent );
