@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from 'cors';
 // Database
 import dbConnection from '../database/config.db';
 // Routes
@@ -18,6 +19,7 @@ class Server {
 
     // Init methods
     this.dbConnect();
+    this.middlewares();
     this.routes();
   }
 
@@ -26,7 +28,10 @@ class Server {
   }
 
   middlewares() {
-    throw new Error( 'Method not implemented' );
+    // Cors
+    this.app.use( cors() );
+    // PaseBody
+    this.app.use( express.json() );
   }
 
   routes() {
