@@ -3,17 +3,21 @@ import { Response } from 'express';
 // Interfaces
 import { AuthRequest } from '../../interfaces/http';
 // Models
+import { Event } from '../../models';
 
 /*
   PATH: '/api/events/:id'
   REQUIRED-JWT: true
 */
 export const getEvent = async ( req: AuthRequest, res: Response ) => {
+  const { id } = req.params;
 
   try {
+    const event = await Event.findById( id );
+
     res.status( 200 ).json({
       ok: true,
-      msg: 'getEvent'
+      event
     });
 
   } catch ( err ) {

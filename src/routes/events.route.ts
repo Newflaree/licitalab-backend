@@ -9,7 +9,7 @@ import {
   updateEvent
 } from '../controllers/events';
 // Helpers
-import { isDate } from '../helpers/db';
+import { eventIdValidator, isDate } from '../helpers/db';
 // Middlewares
 import { validateFields, validateJWT } from '../middlewares';
 
@@ -31,7 +31,12 @@ router.get( '/', [
   validateFields
 ], getEvents );
 
-router.get( '/:id', [], getEvent );
+router.get( '/:id', [
+  check( 'id', 'Invalid id' ).isMongoId(),
+  check( 'id' ).custom( eventIdValidator ),
+  validateFields
+], getEvent );
+
 router.put( '/:id', [], updateEvent );
 router.delete( '/:id', [], deleteEvent );
 
