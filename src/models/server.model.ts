@@ -1,17 +1,24 @@
 import express, { Application } from 'express';
 // Database
 import dbConnection from '../database/config.db';
+// Routes
+import { authRouter } from '../routes';
 
 class Server {
-  public app: Application;
-  public port: string;
+  private app: Application;
+  private port: string;
+  private apiPaths: any;
 
   constructor() {
     this.app = express();
     this.port = process.env.PORT || '3002';
+    this.apiPaths = {
+      auth: '/api/auth'
+    }
 
     // Init methods
     this.dbConnect();
+    this.routes();
   }
 
   async dbConnect() {
@@ -23,7 +30,7 @@ class Server {
   }
 
   routes() {
-    throw new Error( 'Method not implemented' );
+    this.app.use( this.apiPaths.auth, authRouter )
   }
 
   listen() {
